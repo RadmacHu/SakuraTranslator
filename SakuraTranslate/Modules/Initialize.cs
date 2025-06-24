@@ -17,6 +17,7 @@ namespace SakuraTranslate
             _endpoint = context.GetOrCreateSetting<string>("Sakura", "Endpoint", "http://127.0.0.1:8080/v1/chat/completions");
             _modelName = context.GetOrCreateSetting<string>("Sakura", "ModelName", "Sakura");
             _modelVersion = context.GetOrCreateSetting<string>("Sakura", "ModelVersion", "1.0");
+            _modelNameFromOllama = context.GetOrCreateSetting<string>("Sakura", "OllamaModelName", "sukinishiro");
             _modelType = TranslateModelHelper.GetTranslationModel(_modelName, _modelVersion);
             #region maxTokens
             try

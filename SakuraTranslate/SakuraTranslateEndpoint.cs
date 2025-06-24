@@ -24,6 +24,7 @@ namespace SakuraTranslate
         private bool _enableShortDelay;
         private bool _disableSpamChecks;
         private bool _debug;
+        private string _modelNameFromOllama;
 
         // local var
         private TranslationModel _modelType;

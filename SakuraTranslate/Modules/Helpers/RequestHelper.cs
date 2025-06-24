@@ -10,13 +10,14 @@ namespace SakuraTranslate
 {
     public partial class SakuraTranslateEndpoint : ITranslateEndpoint
     {
-        private string MakeRequestStr(List<PromptMessage> prompts, int maxTokens, double temperature, double topP, double frequencyPenalty = 0)
+        private string MakeRequestStr(List<PromptMessage> prompts, int maxTokens, double temperature, double topP, double frequencyPenalty = 0 , string ollamaModelName = "sukinishiro")
         {
             var sb = new StringBuilder();
             prompts.ForEach(p => { sb.Append($"{{\"role\":\"{JsonHelper.Escape(p.Role)}\",\"content\":\"{JsonHelper.Escape(p.Content)}\"}},"); });
             sb.Remove(sb.Length - 1, 1);
+            
             var retStr =
-                $"{{\"model\":\"sukinishiro\"," +
+                $"{{\"model\":\"{ollamaModelName}\"," +
                 $"\"messages\":[{sb}]," +
                 $"\"temperature\":{temperature}," +
                 $"\"top_p\":{topP}," +
@@ -27,7 +28,12 @@ namespace SakuraTranslate
                 $"\"num_beams\":1," +
                 $"\"repetition_penalty\":1.0," +
                 $"\"stream\":false}}";
-            if (_debug) { XuaLogger.AutoTranslator.Debug($"SakuraTranslate.MakeRequestStr: retStr={retStr}"); }
+
+            if (_debug)
+            {
+                XuaLogger.AutoTranslator.Debug($"SakuraTranslate.MakeRequestStr: retStr={retStr}"); 
+            }
+            
             return retStr;
         }
 
